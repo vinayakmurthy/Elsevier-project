@@ -28,8 +28,8 @@ pipeline {
             steps {
                 sh """
                     cd terraform-codes
-                    echo "$id_ed25519" > terraform-codes/ssh-key/
-                    chmod 600 terraform-codes/ssh-key/id_ed25519
+                    echo "$id_ed25519" > ./ssh-key/
+                    chmod 600 ./ssh-key/id_ed25519
                     terraform fmt
                     terraform plan -out=plan.out   # Save the plan to a file to use later
                 """
@@ -40,8 +40,9 @@ pipeline {
             steps {
                 sh """
                     cd terraform-codes
-                    echo "$id_ed25519" > terraform-codes/ssh-key/id_ed25519
-                    chmod 600 terraform-codes/ssh-key/id_ed25519
+                    echo "$id_ed25519" > ./ssh-key/id_ed25519
+                    chmod 600 ./ssh-key/id_ed25519
+
                     # Set AWS credentials for Terraform to use
                     export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
                     export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
