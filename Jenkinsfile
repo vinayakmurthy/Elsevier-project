@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage("Pull the code") {
             steps {
-                git branch: 'main', url: 'https://github.com/vinayakmurthy/Elsevier.git'
+                git branch: 'main', url: 'https://github.com/vinayakmurthy/elsevier-project.git'
             }
         }
 
