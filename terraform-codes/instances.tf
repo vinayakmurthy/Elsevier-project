@@ -14,7 +14,7 @@ resource "aws_instance" "ubuntu-instance" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("/terraform-codes/ssh-key/id_ed25519")
+    private_key = file("${path.module}/ssh-key/id_ed25519")
     host        = self.public_ip
   }
 
