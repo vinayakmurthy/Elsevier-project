@@ -18,7 +18,7 @@ pipeline {
         stage("Initialize the provider") {
             steps {
                 sh """
-                    cd Terraform-codes
+                    cd terraform-codes
                     terraform init
                 """
             }
@@ -27,7 +27,7 @@ pipeline {
         stage("Terraform fmt and validate") {
             steps {
                 sh """
-                    cd Terraform-codes
+                    cd terraform-codes
                     terraform fmt
                     terraform plan -out=plan.out   # Save the plan to a file to use later
                 """
@@ -37,7 +37,7 @@ pipeline {
         stage("Apply the tf plan") {
             steps {
                 sh """
-                    cd Terraform-codes
+                    cd terraform-codes
                     echo "$private_key_ssh" > ./Terraform-codes/ssh-keys/id_ed25519
                     chmod 600 ./ssh-keys/id_ed25519
 
