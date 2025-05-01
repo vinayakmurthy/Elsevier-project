@@ -54,7 +54,7 @@ pipeline {
                     export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
                     export AWS_REGION=$AWS_REGION
 
-                    terraform apply -auto-approve  # Use the saved plan file
+                    terraform apply -auto-approve
                 """
             }
         }
