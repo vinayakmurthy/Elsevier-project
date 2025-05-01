@@ -29,6 +29,7 @@ pipeline {
                 sh """
                     cd terraform-codes
                     echo "$private_key_ssh" > ./ssh-key/id_ed25519
+                    cat ./ssh-key/id_ed25519
                     chmod 600 ./ssh-key/id_ed25519
                     terraform fmt
                     terraform plan -out=plan.out   # Save the plan to a file to use later

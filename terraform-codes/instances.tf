@@ -11,11 +11,6 @@ resource "aws_instance" "ubuntu-instance" {
     destination = "/tmp/web.sh"
   }
 
-  provisioner "file" {
-    source      = "./scripts/jenkins-setup.sh"
-    destination = "/tmp/jenkins-setup.sh"
-  }
-
   connection {
     type        = "ssh"
     user        = "ubuntu"
@@ -26,9 +21,7 @@ resource "aws_instance" "ubuntu-instance" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/web.sh",
-      "sudo /tmp/web.sh",
-      "chmod +x /tmp/jenkins-setup.sh",
-      "sudo /tmp/jenkins-setup.sh"
+      "sudo /tmp/web.sh"
     ]
   }
 }
