@@ -102,20 +102,6 @@ If you want to use an S3 bucket for storing the Terraform state file remotely, y
 
 ----------------------------------------------------------------------
 
-**Example Output**
-
-Upon successful deployment, you’ll receive output similar to:
-
-Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
-
-Outputs:
-
-public_ip = "http://<public-ip>"
-
-Open the given public_ip in your browser to access the hosted website.
-
-----------------------------------------------------------------------
-
 **Teardown**
 
 To destroy the infrastructure and prevent AWS charges:
