@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        private_key_ssh = credentials("id_ed25519")
         AWS_ACCESS_KEY_ID = credentials("AWS_ACCESS_KEY_ID")
         AWS_SECRET_ACCESS_KEY = credentials("AWS_SECRET_ACCESS_KEY")
         AWS_REGION = 'us-east-1'
@@ -17,11 +16,14 @@ pipeline {
 
         stage("Prepare SSH Key") {
             steps {
-                sh """
-                    cd terraform-codes
-                    echo "$private_key_ssh" > ./ssh-key/id_ed25519
-                    chmod 600 ./ssh-key/id_ed25519
-                """
+                withCredentials([file(credentialsId: 'id_ed25519', variable: 'SSH_KEY_PATH')]) {
+                    sh """
+                        cd terraform-codes
+                        cp \$SSH_KEY_PATH ./ssh-key/id_ed25519  # Copy the secret SSH key to a usable directory
+                        chmod 600 ./ssh-key/id_ed25519         # Set proper permissions for the key
+                        ls -l ./ssh-key/id_ed25519             # Verify key permissions
+                    """
+                }
             }
         }
 
