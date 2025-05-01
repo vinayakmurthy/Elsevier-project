@@ -44,7 +44,7 @@ terraform-ec2-webserver/
 
 ----------------------------------------------------------------------
 
-Prerequisites
+**Prerequisites**
 
 Before starting, ensure you have the following tools installed:
 
@@ -54,9 +54,20 @@ Before starting, ensure you have the following tools installed:
 - AWS account: Create an IAM user with the necessary permissions (EC2, S3, etc.).
 - SSH keys: Generate an SSH key pair for connecting to the EC2 instance.
 
+ **Using Remote Backend for State Management**
+
+If you want to use an S3 bucket for storing the Terraform state file remotely, you can configure it by following these steps:
+
+1. First, create the S3 bucket (using the `s3_bucket.tf` file or manually in the AWS Console).
+2. Uncomment the `backend.tf` content in the `terraform-codes/backend.tf` file.
+3. Run the following commands:
+   ```bash
+   terraform init
+   terraform apply
+
 ----------------------------------------------------------------------
 
-AWS Setup
+**AWS Setup**
 
 1. Configure AWS CLI:
    aws configure
@@ -68,7 +79,7 @@ AWS Setup
 
 ----------------------------------------------------------------------
 
-Deployment Instructions
+**Deployment Instructions**
 
 1. Clone the repository:
    git clone https://github.com/vinayakmurthy/elsevier-project.git
@@ -91,7 +102,7 @@ Deployment Instructions
 
 ----------------------------------------------------------------------
 
-Example Output
+**Example Output**
 
 Upon successful deployment, you’ll receive output similar to:
 
@@ -105,17 +116,17 @@ Open the given public_ip in your browser to access the hosted website.
 
 ----------------------------------------------------------------------
 
-Teardown
+**Teardown**
 
 To destroy the infrastructure and prevent AWS charges:
-
 terraform destroy
 
 This command will tear down all the resources you’ve provisioned (e.g., EC2 instance, security groups).
 
----
+--------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
 
-**Automated Deployment with Jenkins**
+  **Automated Deployment with Jenkins**
 
 This section outlines how to automate the above steps using Jenkins.
 As per the request to use GitHub Actions: since I am more comfortable and experienced with Jenkins, I opted to use Jenkins for this automation. Below is my approach to implementing infrastructure deployment using a Jenkins pipeline.
@@ -156,3 +167,6 @@ To destroy all provisioned resources and avoid incurring AWS charges, either run
 
 terraform destroy
 This will remove the EC2 instance, security groups, and other AWS resources provisioned by Terraform.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
