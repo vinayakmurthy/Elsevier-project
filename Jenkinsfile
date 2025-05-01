@@ -19,9 +19,9 @@ pipeline {
                 withCredentials([file(credentialsId: 'id_ed25519', variable: 'SSH_KEY_PATH')]) {
                     sh """
                         cd terraform-codes
-                        cp \$SSH_KEY_PATH ./ssh-key/id_ed25519  # Copy the secret SSH key to a usable directory
-                        chmod 600 ./ssh-key/id_ed25519         # Set proper permissions for the key
-                        ls -l ./ssh-key/id_ed25519             # Verify key permissions
+                        cp \$SSH_KEY_PATH ./ssh-key/id_ed25519
+                        chmod 600 ./ssh-key/id_ed25519 
+                        ls -l ./ssh-key/id_ed25519
                     """
                 }
             }
