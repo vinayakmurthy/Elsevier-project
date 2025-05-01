@@ -15,6 +15,16 @@ pipeline {
             }
         }
 
+        stage("Prepare SSH Key") {
+            steps {
+                sh """
+                    cd terraform-codes
+                    echo "$private_key_ssh" > ./ssh-key/id_ed25519
+                    chmod 600 ./ssh-key/id_ed25519
+                """
+            }
+        }
+
         stage("Initialize the provider") {
             steps {
                 sh """
@@ -28,11 +38,8 @@ pipeline {
             steps {
                 sh """
                     cd terraform-codes
-                    echo "$private_key_ssh" > ./ssh-key/id_ed25519
-                    cat ./ssh-key/id_ed25519
-                    chmod 600 ./ssh-key/id_ed25519
                     terraform fmt
-                    terraform plan -out=plan.out   # Save the plan to a file to use later
+                    terraform plan
                 """
             }
         }
@@ -41,16 +48,11 @@ pipeline {
             steps {
                 sh """
                     cd terraform-codes
-                    echo "$private_key_ssh" > ./ssh-key/id_ed25519
-                    chmod 600 ./ssh-key/id_ed25519
-
-                    # Set AWS credentials for Terraform to use
                     export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
                     export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
                     export AWS_REGION=$AWS_REGION
 
-                    # Apply the plan without requiring manual approval
-                    terraform apply -auto-approve plan.out  # Use the saved plan file
+                    terraform apply -auto-approve  # Use the saved plan file
                 """
             }
         }
