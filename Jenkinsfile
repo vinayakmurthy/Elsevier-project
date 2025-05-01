@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        id_ed25519 = credentials("id_ed25519")
+        private_key_ssh = credentials("id_ed25519")
         AWS_ACCESS_KEY_ID = credentials("AWS_ACCESS_KEY_ID")
         AWS_SECRET_ACCESS_KEY = credentials("AWS_SECRET_ACCESS_KEY")
         AWS_REGION = 'us-east-1'
@@ -28,7 +28,7 @@ pipeline {
             steps {
                 sh """
                     cd terraform-codes
-                    echo "$id_ed25519" > ./ssh-key/
+                    echo "$private_key_ssh" > ./ssh-key/id_ed25519
                     chmod 600 ./ssh-key/id_ed25519
                     terraform fmt
                     terraform plan -out=plan.out   # Save the plan to a file to use later
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 sh """
                     cd terraform-codes
-                    echo "$id_ed25519" > ./ssh-key/id_ed25519
+                    echo "$private_key_ssh" > ./ssh-key/id_ed25519
                     chmod 600 ./ssh-key/id_ed25519
 
                     # Set AWS credentials for Terraform to use
