@@ -13,7 +13,7 @@ resource "aws_instance" "jenkins-ubuntu" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("./ssh-keys/id_ed25519")
+    private_key = file("./ssh-key/id_ed25519")
     host        = self.public_ip
   }
 
